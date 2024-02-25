@@ -1,2 +1,32 @@
 Section 1.1
-What is the difference between a host and an end system? List several different types of end systems. Is a Web server an end system?
+Q: What is the difference between a host and an end system? List several different types of end systems. Is a Web server an end system?
+A: Hosts and end systems have the same meaning. They both refer to devices that are connected to the Internet and that are the ultimate destination or origin of messages or data.
+Some examples of end systems are phones, desktop PCs, laptops, refrigerators, watches, cars, etc. A web server is also an end system. 
+When browsing the web, communication usually occurs between a PC/Laptop/Mobile Phone and a Web server - that is, between 2 end systems.
+
+Q: How does Wikipedia describe diplomatic protocol?
+A: Wikipedia describes diplomatic protocols as unspoken rules that have been established through time.
+It's a way for people in Government positions to show respect and courtesy to other politicians depending on the hierarchy.
+
+Q: Why are standards important for protocols?
+Standards are important for protocols because it allows 2 end systems to communicate with each other.
+If one end system expects something in a request, then the sender must include that expectation in the request. This way, the receiver can figure out what to do with the request.
+These expectations are standards, and it allows multiple devices and applications to communicate with each other if they all adhere to the standards.
+This creates "interoperation" between multiple devices.
+
+Section 1.2
+Q: List 4 access technologies. Classify each one as home access, enteprise access, or wide-area wireless access.
+A: 1. 3G, 4G, 5G - wide-area wireless access.
+2. Wi-Fi - small-area wireless access.
+3. Fiber-to-the-Home - home-access.
+4. Digital Subscriber Line - home-access.
+5. Cable - home-access.
+6. Ethernet - Enterprise-acces/home.
+
+Q: Is HFC transmission rate dedicated or shared among users? Are collisions possible in a downstream HFC channel? Why or why not?
+A: HFC transmission rates are shared among users. If there are many users simultaneously downloading something, then the speed of the download for each of these users 
+is much lower than it would have been had each user downloaded on different occasions. 
+Collisions are not possible on the downstream because all data originates from a single source, the head.
+The data then travels down and separates from the main fiber link to the cable link that is attached to one specific home.
+
+Q: List the available residential access technologies in your city. For each type of access, provide the advertised downstream rate, upstream rate, and monthly price.
