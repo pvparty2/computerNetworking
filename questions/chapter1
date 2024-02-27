@@ -71,26 +71,28 @@ c. Find the probability that a given user is transmitting.
 A: 20%.
 
 d. Suppose now there are three users. Find the probability that at any given time, all three users are transmitting simultaneously. Find the fraction of time during which the queue grows.
+A: 20% * 20% * 20%
 
- R14. Why will two ISPs at the same level of the hierarchy often peer with each 
-other? How does an IXP earn money?
- R15. Some content providers have created their own networks. Describe Google’s 
-network. What motivates content providers to create these networks?
- SECTION 1.4
- R16. Consider sending a packet from a source host to a destination host over a 
-fixed route. List the delay components in the end-to-end delay. Which of 
-these delays are constant and which are variable?
- R17. Visit the Transmission Versus Propagation Delay interactive animation at 
-the companion Web site. Among the rates, propagation delay, and packet 
-sizes available, find a combination for which the sender finishes transmitting 
-before the first bit of the packet reaches the receiver. Find another combina
-tion for which the first bit of the packet reaches the receiver before the sender 
-finishes transmitting.
- R18. How long does it take a packet of length 1,000 bytes to propagate over a 
-link of distance 2,500 km, propagation speed 2.5 # 108 m/s, and transmission 
-rate 2 Mbps? More generally, how long does it take a packet of length L to 
-propagate over a link of distance d, propagation speed s, and transmission 
-68     
+Q: Why will two ISPs at the same level of the hierarchy often peer with each other? How does an IXP earn money?
+A: An IXP, an Internet exchange point, makes money by providing a place where customer ISPs can link to provider ISPs via the IXP's routers.
+They can also peer with each other and share the cost of the provider ISPs.
+
+Q: Some content providers have created their own networks. Describe Google’s network. What motivates content providers to create these networks?
+A: Eliminates the need to of paying Tier-1 ISPs for Internet access.
+
+Q: Consider sending a packet from a source host to a destination host over a fixed route. List the delay components in the end-to-end delay. 
+Which of these delays are constant and which are variable?
+A: Nodal processing delay, queuing delay, transmission delay, and propagation delay = total nodal delay.
+
+Q: Visit the Transmission Versus Propagation Delay interactive animation at the companion Web site. 
+Among the rates, propagation delay, and packet sizes available, find a combination for which the sender finishes transmitting before the first bit of the packet reaches the receiver. 
+Find another combination for which the first bit of the packet reaches the receiver before the sender finishes transmitting.
+A: N/A
+
+Q: How long does it take a packet of length 1,000 bytes to propagate over a link of distance 2,500 km, propagation speed 2.5 # 108 m/s, and transmission 
+rate 2 Mbps?
+A: ((1,000 * 8) bits / 2,000,000 bits/second) + (2,500 * 1,000)m / (2.5 * 10 ^ 8) m/s
+
 CHAPTER 1  •  COMPUTER NETWORKS AND THE INTERNET
  rate R bps? Does this delay depend on packet length? Does this delay depend 
 on transmission rate?
