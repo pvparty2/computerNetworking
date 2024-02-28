@@ -93,42 +93,75 @@ Q: How long does it take a packet of length 1,000 bytes to propagate over a link
 rate 2 Mbps?
 A: ((1,000 * 8) bits / 2,000,000 bits/second) + (2,500 * 1,000)m / (2.5 * 10 ^ 8) m/s
 
-CHAPTER 1  •  COMPUTER NETWORKS AND THE INTERNET
- rate R bps? Does this delay depend on packet length? Does this delay depend 
-on transmission rate?
- R19. Suppose Host A wants to send a large file to Host B. The path from Host A to Host 
-B has three links, of rates R1 = 500 kbps, R2 = 2 Mbps, and R3 = 1 Mbps.
- a. Assuming no other traffic in the network, what is the throughput for the 
-file transfer?
- b. Suppose the file is 4 million bytes. Dividing the file size by the through
-put, roughly how long will it take to transfer the file to Host B?
- c. Repeat (a) and (b), but now with R2 reduced to 100 kbps.
- R20. Suppose end system A wants to send a large file to end system B. At a very 
-high level, describe how end system A creates packets from the file. When 
-one of these packets arrives to a router, what information in the packet does 
-the router use to determine the link onto which the packet is forwarded? 
-Why is packet switching in the Internet analogous to driving from one city to 
-another and asking directions along the way?
- R21. Visit the Queuing and Loss interactive animation  at the companion Web site. 
-What is the maximum emission rate and the minimum transmission rate? 
-With those rates, what is the traffic intensity? Run the interactive animation 
-with these rates and determine how long it takes for packet loss to occur. 
-Then repeat the experiment a second time and determine again how long it 
-takes for packet loss to occur. Are the values different? Why or why not?
- SECTION 1.5
- R22. List five tasks that a layer can perform. Is it possible that one (or more) of 
-these tasks could be performed by two (or more) layers?
- R23. What are the five layers in the Internet protocol stack? What are the principal 
-responsibilities of each of these layers?
- R24. What is an application-layer message? A transport-layer segment? A net
+Q: More generally, how long does it take a packet of length L to propagate over a link of distance d, propagation speed s, and transmission rate R bps?
+A: T = Transmission Delay + Propagation Delay = (L / R) + (d / s)
+
+Q: Suppose Host A wants to send a large file to Host B. 
+The path from Host A to Host B has three links, of rates R1 = 500 kbps, R2 = 2 Mbps, and R3 = 1 Mbps.
+Assuming no other traffic in the network, what is the throughput for the file transfer?
+A: Throughput = min{R1, R2, R3} = R1 = 500 kbps.
+
+Q: Suppose the file is 4 million bytes. Dividing the file size by the throughput, roughly how long will it take to transfer the file to Host B?
+A: (4,000,000 * 8) / 500,000
+
+Q: Suppose end system A wants to send a large file to end system B. 
+At a very high level, describe how end system A creates packets from the file. 
+When one of these packets arrives to a router, what information in the packet does the router use to determine the link onto which the packet is forwarded?
+A: The router will use header information from each of the 5 layers in an Internet protocol stack. 
+However, the destination address is mostly encoded by the IP-address, which is added by the Network protocol (creating a datagram).
+
+Q: Why is packet switching in the Internet analogous to driving from one city to another and asking directions along the way?
+A: Because when packets arrive at one router, the router determines the next link in it's journey to take to reach the destination.
+This is similar to a person stopping at gas stations to ask for directions as they travel to their destination.
+
+Q: Visit the Queuing and Loss interactive animation at the companion Web site. 
+What is the maximum emission rate and the minimum transmission rate?
+A: Maximum Emission Rate = 200 packets per minute.
+Minimum Transmission Rate = 1 packets per minute.
+
+Q: With those rates, what is the traffic intensity? 
+A: Traffic Intensity = L * a / R = 1 * (200 / 60) / (1 / 60) = 200
+
+Q: Run the interactive animation with these rates and determine how long it takes for packet loss to occur.
+A: 16 packet slots in the router. Packets arrive at rate of 200 / 60 = 3.33 packets per second.
+16 packet slots / 3.33 packets per second = 4.8 seconds until buffer is full. 
+And about 5.1 seconds until the first packet loss occurs.
+
+Q: List five tasks that a layer can perform. 
+Is it possible that one (or more) of these tasks could be performed by two (or more) layers?
+A: N/A
+
+Q: What are the five layers in the Internet protocol stack? 
+A: Application, Transport, Network, Link, Physical
+
+Q: What are the principal responsibilities of each of these layers?
+A: Application creates the message that needs to be sent to the destination.
+Transport adds header information creating a "transport-layer segment". 
+Network layer adds source and destination end system addresses. "Network-layer datagrams."
+Link layer creates "link-layer frame".
+Physical layer moves the individual bits from one end system to another.
+
+Q: What is an application-layer message? A transport-layer segment? A net
 work-layer datagram? A link-layer frame?
- R25. Which layers in the Internet protocol stack does a router process? Which lay
-ers does a link-layer switch process? Which layers does a host process?
- SECTION 1.6
- R26. What is self-replicating malware?
- R27. Describe how a botnet can be created and how it can be used for a DDoS attack.
- R28. Suppose Alice and Bob are sending packets to each other over a computer 
-network. Suppose Trudy positions herself in the network so that she can 
-capture all the packets sent by Alice and send whatever she wants to Bob; she 
-can also capture all the packets sent by Bob and send whatever she wants to 
-Alice. List some of the malicious things Trudy can do from this position.
+A: N/A
+
+Q: Which layers in the Internet protocol stack does a router process? 
+A: The router processes the Network layer.
+
+Q: Which layers does a link-layer switch process? 
+A: Link-layer.
+
+Q: Which layers does a host process?
+A: Application and Transport layers.
+
+Q: What is self-replicating malware?
+A: 
+ 
+Q: Describe how a botnet can be created and how it can be used for a DDoS attack.
+A:
+ 
+Q: Suppose Alice and Bob are sending packets to each other over a computer network. S
+uppose Trudy positions herself in the network so that she can capture all the packets sent by Alice and send whatever she wants to Bob; 
+she can also capture all the packets sent by Bob and send whatever she wants to Alice. 
+List some of the malicious things Trudy can do from this position.
+A: No comment.
