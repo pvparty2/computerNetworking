@@ -1,0 +1,5 @@
+https://media.pearsoncmg.com/bc/abp/cs-resources/products/product.html#product,isbn=0136681557
+https://gaia.cs.umass.edu/kurose_ross/videos/1/
+https://gaia.cs.umass.edu/kurose_ross/knowledgechecks/index.php
+https://media.pearsoncmg.com/ph/esm/ecs_kurose_compnetwork_8/cw/
+https://gaia.cs.umass.edu/kurose_ross/wireshark.php
