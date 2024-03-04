@@ -1,0 +1,115 @@
+R1. List five nonproprietary Internet applications and the application-layer protocols that they use.
+A: 
+1. Web - HTTP
+2. E-mail - SMTP
+3. File Transfer - FTP
+4. Remote Terminal Access - Telnet
+5. Internet Telephony - SIP, RTP
+
+R2. What is the difference between network architecture and application architecture?
+In network architecture, you have to decide between TCP or UDP transport services.
+In this respect, the network architecture is fixed and provides a set of services to applications.
+In application architecture, you have to decide which application-layer protocol to use or create.
+You have to decide between client-server architecture or peer-to-peer archictecture. 
+
+R3. For a communication session between a pair of processes, which process is the client and which is the server?
+A: Usually, the client is the process that sends a request message.
+And the server is the process that receives a request message.
+
+R4. For a P2P file-sharing application, do you agree with the statement, 
+“There is no notion of client and server sides of a communication session”? Why or why not?
+A: I disagree, because even in P2P file-sharing, the client will be the process that requests a file,
+and the server will be the process that sends that file. 
+Aka. clients download files, whereas servers upload files.
+
+R5. What information is used by a process running on one host to identify a process running on another host?
+A: IP address to identify the host, and the port number to identify the socket linked to the process.
+
+R6. Suppose you wanted to do a transaction from a remote client to a server as fast as possible. Would you use UDP or TCP? Why?
+A: UDP nor TCP have a guarantee on timing requirements of an application.
+Timing depends on the Internet's congestion and traffic levels.
+
+R7. Referring to Figure 2.4, we see that none of the applications listed in Figure 2.4 requires both no data loss and timing. 
+Can you conceive of an application that requires no data loss and that is also highly time-sensitive?
+A: Medical devices or war applications. For example, a device that mimics a heart for a human. 
+We want this device to run consistently and correctly. Any small error in data can cause faulty alerts and concerns to doctors.
+At the same time, correct alerts need to be sent ASAP to save a patients life.
+
+R8. List the four broad classes of services that a transport protocol can provide. 
+For each of the service classes, indicate if either UDP or TCP (or both) provides such a service.
+A: TCP guarantees: 
+1. Reliable Data Transfer
+2. Congestion Control
+UDP does not guarantee the above.
+Neither UDP nor TCP can guarantee throughput and timing.
+
+R9. Recall that TCP can be enhanced with TLS to provide process-to-process security services, including encryption. 
+Does TLS operate at the transport layer or the application layer? 
+If the application developer wants TCP to be enhanced with TLS, what does the developer have to do?
+A: TLS operates at the application layer. To incorporate TLS before sending messages via TCP, 
+the application must send its message to TLS via its API/socket. The TLS then encrypts the message and forwards to the TCP socket.
+
+R10. What is meant by a handshaking protocol?
+A: This is a protocol used to establish a TCP connection. 
+The client and server agree to a transport layer protocol to communicate with each other.
+The client sends a TCP segment to the server, the servers responds with and acknowledgement, and 
+finally the client confirms by sending the acknowledgment back along with its request.
+
+R11. Why do HTTP, SMTP, and IMAP run on top of TCP rather than on UDP?
+A: For all three protocols, we want to guarantee the reliable transfer of data.
+UDP does not provide any guarantee that the data will arrive, not to mention if it will be correct.
+
+R12. Consider an e-commerce site that wants to keep a purchase record for each of its customers. 
+Describe how this can be done with cookies.
+A: The site web server can maintain a table of clients where each row in the table is identified by a unique cookie.
+Each cookie identifies a client. The cookie is set in the web server, and is sent via HTTP int he Set-Cookie header.
+The browser saves the cookie ID in local storage on the client's computer.
+When the browser requests the e-commerce site again, the browser can include the saved cookie in its request to the web server.
+The web server can tailor the web page back to the client using its table and the provided cookie. 
+
+R13. Describe how Web caching can reduce the delay in receiving a requested object. 
+Will Web caching reduce the delay for all objects requested by a user or for only some of the objects? Why?
+A: Web caches can reduce delays for requested objects by storing copies of frequently requested objects.
+Since Web caches are linked directly to an Enterprise or University network, for example, 
+the requested objects travel across fewer links, routers, and switches, thus reducing delay.
+The objects also will not be bottlenecked by any, if any, routers with low transmission speeds.
+However, web caches do not have copies of all objects that a client might request from a server.
+So delays are not to be expected for all objects. This is because if a client is the first one
+to request a specific object, then the client will have to wait a longer time as the Web Cache
+reaches across the Internet to the origin server to get the requested object, copy it and store it in cache,
+and then send it to the client.
+
+R14. Telnet into a Web server and send a multiline request message. 
+Include in the request message the If-modified-since: header line to force a 
+response message with the 304 Not Modified status code.
+A: N/A
+
+R15. List several popular messaging apps. Do they use the same protocols as SMS?
+A: iMessage uses a proprietary protocol called Apple Push Notification service (APNs).
+WhatsApp uses HTTP/S
+
+R16. Suppose Alice, with a Web-based e-mail account (such as Hotmail or Gmail), 
+sends a message to Bob, who accesses his mail from his mail server using IMAP. 
+Discuss how the message gets from Alice’s host to Bob’s host. 
+Be sure to list the series of application-layer protocols that are used to move the message between the two hosts.
+A: If Alice is using a web-based e-mail account, then Alice creates a message in the web application
+and sends the message to her mail server using HTTP. 
+Alice's mail server receives the message, and forwards it to Bob's mail server using SMTP.
+Bob's mail server saves the message in Bob's inbox.
+Bob uses IMAP to read the message from his mail server.
+
+R17. Print out the header of an e-mail message you have recently received. 
+How many Received: header lines are there? 
+Analyze each of the header lines in the message.
+
+
+R18. What is the HOL blocking issue in HTTP/1.1? How does HTTP/2 attempt to solve it? 
+A: 
+
+R19. Is it possible for an organization’s Web server and mail server to have 
+exactly the same alias for a hostname (for example, foo.com)? What would 
+be the type for the RR that contains the hostname of the mail server?
+R20. Look over your received e-mails, and examine the header of a message sent 
+from a user with a .edu e-mail address. Is it possible to determine from the 
+header the IP address of the host from which the message was sent? Do the 
+same for a message sent from a Gmail account.
