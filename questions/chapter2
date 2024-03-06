@@ -101,15 +101,42 @@ Bob uses IMAP to read the message from his mail server.
 R17. Print out the header of an e-mail message you have recently received. 
 How many Received: header lines are there? 
 Analyze each of the header lines in the message.
+A: N/A
 
 
 R18. What is the HOL blocking issue in HTTP/1.1? How does HTTP/2 attempt to solve it? 
-A: 
+A: A web page is made up of many different objects. For example, a web page can be the HTML file, 3 images, and a video file.
+When a client requests this web page, when a web server tries to send these objects over a single TCP connection
+then HOL blocking can occur. The large video object, if it is at the head of the web server's response message,
+will take a long time to reach the client due to its size, relative to the smaller sized objects.
+As the smaller objects wait until the video file has finished transmitting, they are experiencing head of line blocking.
 
-R19. Is it possible for an organization’s Web server and mail server to have 
-exactly the same alias for a hostname (for example, foo.com)? What would 
-be the type for the RR that contains the hostname of the mail server?
-R20. Look over your received e-mails, and examine the header of a message sent 
-from a user with a .edu e-mail address. Is it possible to determine from the 
-header the IP address of the host from which the message was sent? Do the 
-same for a message sent from a Gmail account.
+R19. Is it possible for an organization’s Web server and mail server to have exactly the same alias for a hostname (for example, foo.com)? 
+What would be the type for the RR that contains the hostname of the mail server?
+A: It's possible for a Web server and mail server to share the same alias for a host name because DNS servers can return different types of resource records.
+For a web server, the DNS server will return a resource record of type A.
+For a mail server, the DNS server will return a resource record of type MX.
+
+R20. Look over your received e-mails, and examine the header of a message sent from a user with a .edu e-mail address. 
+Is it possible to determine from the header the IP address of the host from which the message was sent? 
+Do the same for a message sent from a Gmail account.
+A: N/A
+
+R21. In BitTorrent, suppose Alice provides chunks to Bob throughout a 30-second interval. 
+Will Bob necessarily return the favor and provide chunks to Alice in this same interval? Why or why not?
+A: Bob will not return the favor if Alice is supplying that data at a lower rate as compared to the other peers.
+In this scenario, she will be choked, and Bob will have other unchoked providing him chunks at a much faster rate.
+Tit-for-tat protocol.
+
+R22. Consider a new peer Alice that joins BitTorrent without possessing any chunks. 
+Without any chunks, she cannot become a top-four uploader for any of the other peers, since she has nothing to upload. 
+How then will Alice get her first chunk?
+A: Alice will get her first chunk by trying to establish a connection with any or all of the peers in the torrent,
+as provided by to her by the tracker. Along with the top-four uploaders, peer usually select a random "optimistically unchoked" 
+peer with which to exchange chunks with. Over time, Alice will be selected as one of these "lucky" peers, and receive her first chunk.
+
+R23. What is an overlay network? Does it include routers? What are the edges in the overlay network?
+A: An overlay network is any network that is built logically on another logical network.
+Peer-to-peer networks are a type of overlay network built on top of the Internet. 
+The nodes of the network are the individual PCs, laptops, and smartphones. 
+In the peer-to-peer network, there are no routers because the hosts communicate directly with each other.
