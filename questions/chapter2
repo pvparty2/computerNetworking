@@ -140,3 +140,15 @@ A: An overlay network is any network that is built logically on another logical 
 Peer-to-peer networks are a type of overlay network built on top of the Internet. 
 The nodes of the network are the individual PCs, laptops, and smartphones. 
 In the peer-to-peer network, there are no routers because the hosts communicate directly with each other.
+
+R24. CDNs typically adopt one of two different server placement philosophies. Name and briefly describe them.
+A: Philosophy #1: Enter Deep - in this philosophy, CDN server clusters are placed deep inside access ISPs around the world.
+The goal is to reduce delay and increase throughput by reducing the number of links and routers between 
+the CDN servers and the clients.
+
+R25. Besides network-related considerations such as delay, loss, and bandwidth performance, 
+there are other important factors that go into designing a CDN server selection strategy. What are they?
+A: Maintenance and delivery costs. Security measures.
+
+
+
