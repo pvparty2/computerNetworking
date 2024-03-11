@@ -1,7 +1,7 @@
 from socket import *
 
 # Specify the server name / IP address and server port number
-serverName = '192.168.1.105'
+serverName = 'serverName'
 serverPort = 12000
 
 # Create the client socket
