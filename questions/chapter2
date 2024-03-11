@@ -150,5 +150,120 @@ R25. Besides network-related considerations such as delay, loss, and bandwidth p
 there are other important factors that go into designing a CDN server selection strategy. What are they?
 A: Maintenance and delivery costs. Security measures.
 
+R26. In Section 2.7, the UDP server described needed only one socket, whereas the TCP server needed two sockets. Why? 
+If the TCP server were to support n simultaneous connections, each from a different client host, how many 
+sockets would the TCP server need?
+A: TCP server needs two sockets. One socket is to listen in for incoming connection requests from clients.
+The second socket is the actual TCP connection used to move bytes between the client and server.
+UDP server only needs one socket because there is no connection established between client and server.
+The UDP server simply accepts a message from any client on that one socket.
+If the TCP server were to support n simultaneous connections, the TCP server would need n + 1 sockets.
+
+R27. For the client-server application over TCP described in Section 2.7, why must the server program be executed before the client program? 
+For the client-server application over UDP, why may the client program be executed before the server program?
+TCP requires a connection to be established between a client and a server. If a server is not on, then the client has no socket to establish a connection with. Therefore, the server program must be executed and running, such that when the client program is executed it has a socket to connect to.
+With UDP, the client can send a message to an IP address and port number with the message itself. UDP has no guarantee of delivery, so if the host is not on, then the message will be undelivered.
+
+
+P1. True or false?
+a. A user requests a Web page that consists of some text and three images. 
+For this page, the client will send one request message and receive four response messages.
+A: False, there is only 1 response for every request.
+
+b. Two distinct Web pages (for example, www.mit.edu/research.html and www.mit.edu/students.html) can be sent over the same persistent connection.
+A: True
+
+c. With nonpersistent connections between browser and origin server, it is possible for a single TCP segment to carry two distinct HTTP request messages.
+A: False. A TCP segment consists of 1 message with headers.
+
+d. The Date: header in the HTTP response message indicates when the object in the response was last modified.
+A: False. That would be the Last-Modified header. The Date header is the date and time the response message was created.
+
+e. HTTP response messages never have an empty message body.
+A: False. A HEAD request returns an empty message body in the response.
+
+P2. SMS, iMessage, Wechat, and WhatsApp are all smartphone real-time messaging systems. After doing some research on the Internet, for each of these systems write one paragraph about the protocols they use. Then write a paragraph explaining how they differ.
+SMS uses the cellular network and has a 160 characeter limit (alphanumeric). SMS is not encrypted. iMessage uses the data network. It can send alphanumeric characters as well as images, videos, and files.
+iMessage messages are encrypted and has no character limits.
+WhatsApp uses server pools to queue messages. When the client is ready, they request the messages from these pools. The server deletes these messages from its server pools and notifies the sender that the client has received the messages.
+
+
+P3. Consider an HTTP client that wants to retrieve a Web document at a given URL. The IP address of the HTTP server is initially unknown. What transport and application-layer protocols besides HTTP are needed in this scenario?
+A: The HTTP client would use the application-layer Transport Layer Security (TLS), which is an enhancement to TCP, to secure its messages over TCP. If the hostname is included in the URL, then the Domain Name System (DNS) is used to figure out the IP address of the host. Finally, the TCP protocol is used to establish a TCP connection over the transport-layer.
+
+P4. Consider the following string of ASCII characters that were captured by Wireshark when the browser sent an HTTP GET message (i.e., this is the actual content of an HTTP GET message). The characters <cr><lf> are carriage return and line-feed characters (that is, the italized character string <cr> in the text below represents the single carriage-return character that was contained at that point in the HTTP header). Answer the following questions, indicating where in the HTTP GET message below you find the answer.
+a. What is the URL of the document requested by the browser?
+A: http://gaia.cs.umass.edu/cs453/index.html
+The protocol and filename is found in the request line. The host is located in the header called Host.
+
+b. What version of HTTP is the browser running?
+A: HTTP/1.1
+The version is found in the request line.
+
+c. Does the browser request a non-persistent or a persistent connection?
+A: Persistent, as evidenced by the header Connection:keep-alive.
+
+d. What is the IP address of the host on which the browser is running?
+A: This cannot be determined from an HTTP request message. We can, at least, tell what kind of browser the client is running with the User-Agent header. The IP address of the host can be determined by the Host header. Use the command 'nslookup gaia.cs.umass.edu'.
+
+e. What type of browser initiates this message? Why is the browser type needed in an HTTP request message?
+A: The Mozilla 5.0 browser initiates the request message. The User-Agent header is useful because the server can provide different versions of the same request object depending on the type and version of the requesting client.
+
+P5. The text below shows the reply sent from the server in response to the HTTP GET message in the question above. Answer the following questions, indicating where in the message below you find the answer.
+
+a. Was the server able to successfully find the document or not? What time was the document reply provided?
+A: Server returned resposne 200 with response status message 'OK'. Therefore, it found the document. The time the response message was created and sent is indicated by the Date header.
+
+b. When was the document last modified?
+A: Indicated by the header Last-Modified: Sat, 10 Dec2005 18:27:46 GMT.
+
+c. How many bytes are there in the document being returned?
+A: Indicated by the header Content-Length: 3874.
+
+d. What are the first 5 bytes of the document being returned? Did the server agree to a persistent connection?
+A: The first 5 bytes are '<!doc'. The server agreed to a persistent connection because it returned the header Connection: Keep-Alive.
+
+P6. Obtain the HTTP/1.1 specification (RFC 2616). Answer the following questions:
+a. Explain the mechanism used for signaling between the client and server to indicate that a persistent connection is being closed. Can the client, the server, or both signal the close of a connection?
+A: Clients and servers both use the Connection header with value 'close' should they wish to close the connection after sending the message.
+
+b. What encryption services are provided by HTTP?
+A: HTTP does not provide encryption services. There is merely a discussion of security risks in RFC 2616.
+
+c. Can a client open three or more simultaneous connections with a given server?
+A: Yes. These are called parallel connections.
+
+d. Either a server or a client may close a transport connection between them if either one detects the connection has been idle for some time. Is it possible that one side starts closing a connection while the other side is transmitting data via this connection? Explain.
+A: Yes, it is possible. If the server starts to close the connection, it thinks the connection is being closed. But if, at the same time, the client is sending bytes into the connection, it thinks the message is en route to the server. This is an asynchronous close event.
+
+P7. Suppose within your Web browser you click on a link to obtain a Web page. The IP address for the associated URL is not cached in your local host, so a DNS lookup is necessary to obtain the IP address. Suppose that n DNS servers are visited before your host receives the IP address from DNS; the successive visits incur an RTT of RTT1, . . . , RTTn. Further suppose that the Web page associated with the link contains exactly one object, consisting of a small amount of HTML text. Let RTT0 denote the RTT between the local host and the server containing the object. Assuming zero transmission time of the object, how much time elapses from when the client clicks on the link until the client receives the object?
+A: RTT_1 + RTT_2 + ... + RTT_n + RTT0_tcp + RTT0_request/response
+
+P8. Referring to Problem P7, suppose the HTML file references eight very small objects on the same server. Neglecting transmission times, how much time elapses with
+a. Non-persistent HTTP with no parallel TCP connections?
+A: RTT_1 + RTT_2 + ... + RTT_n + 9*RTT0_tcp + RTT0_html + 8*RTT0_objects
+
+b. Non-persistent HTTP with the browser configured for 6 parallel connections?
+A: RTT_1 + RTT_2 + ... + RTT_n + 3*RTT0_tcp + RTT0_html + RTT0_6objects + RTT0_2objects. This is assuming the objects are received at the same time.
+
+c. Persistent HTTP?
+A: RTT_1 + RTT_2 + ... + RTT_n + RTT0_tcp + RTT0_html + RTT0_8objects
+
+P9. Consider Figure 2.12, for which there is an institutional network connected to the Internet. Suppose that the average object size is 1,000,000 bits and that the average request rate from the institution’s browsers to the origin servers is 16 requests per second. Also suppose that the amount of time it takes from when the router on the Internet side of the access link forwards an HTTP request until it receives the response is three seconds on average (see Section 2.2.5). Model the total average response time as the sum of the average access delay (that is, the delay from Internet router to institution router) and the average Internet delay. For the average access delay, use ∆/(1 - ∆b), where ∆ is the average time required to send an object over the access link and b is the arrival rate of objects to the access link.
+a. Find the total average response time.
+A: Total Average Response Time = Average Access Delay + Average Internet Delay
+Average Access Delay = ∆/(1 - ∆b) = (1/15) / (1 - 1/15 * 16) = -1.
+∆ = 1,000,000 bits / 15,000,000 bits per second = 1/15 seconds
+b = 16 objects / second
+LAN Traffic Intensity = I_LAN = 16 requests per second * (1,000,000bits) / 100 Mbps = 0.16.
+Access Traffic Intensity = I_Access = 16 requests per second * (1,000,000bits) / 15 Mbps = 1.067
+Traffic Intensity is greater than 1. This network is in a state of congestion and an accurate average response time cannot be calculated using the formula above.
+
+b. Now suppose a cache is installed in the institutional LAN. Suppose the miss rate is 0.4. Find the total response time.
+A: b = 0.6 * 16 = 9.6 requests per second need the Internet.
+Average Access Delay = (1/15) / (1 - 1/15 * 9.6) = 0.185 seconds
+Total Response Time = 0.185 seconds + 3 seconds = 3.185 seconds.
+
+
 
 
