@@ -1,0 +1,4 @@
+1. Open UdpPingerClient.py and update the serverName variable to the IP address of your host.
+2. Open a cmd window and run UdpPingerServer.py
+3. Open another cmd window and run UdpPingerClient.py
+4. Check the cmd from step 1 to see how the web server handled asynchronous client requests using multithreading.
