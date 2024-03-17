@@ -264,6 +264,19 @@ A: b = 0.6 * 16 = 9.6 requests per second need the Internet.
 Average Access Delay = (1/15) / (1 - 1/15 * 9.6) = 0.185 seconds
 Total Response Time = 0.185 seconds + 3 seconds = 3.185 seconds.
 
+P10. Consider a short, 10-meter link, over which a sender can transmit at a rate of 150 bits/sec in both directions. Suppose that packets containing data 
+are 100,000 bits long, and packets containing only control (e.g., ACK or  handshaking) are 200 bits long. Assume that N parallel connections each get 1/N of the link bandwidth. Now consider the HTTP protocol, and suppose that each downloaded object is 100 Kbits long, and that the initial downloaded object contains 10 referenced objects from the same sender. Would parallel 
+downloads via parallel instances of non-persistent HTTP make sense in this case? Now consider persistent HTTP. Do you expect significant gains over the non-persistent case? Justify and explain your answer.
+A: Difference is less than 1%.
 
+P15. What is the difference between MAIL FROM: in SMTP and From: in the mail message itself?
+A: MAIL FROM: -> Identifies the sender's email address. Used in the SMTP protocol message to let the mail server know who the client is.
+From: -> Used in the body of the SMTP message to let the end user know who sent the message.
+
+P16. How does SMTP mark the end of a message body? How about HTTP? Can HTTP use the same method as SMTP to mark the end of a message body? Explain.
+A: SMTP marks the end of a message body with "CRLF.CRLF". HTTP marks the end of a message with a "CRLF". HTTP can use the same method as SMTP to mark the end of a message body if some HTTP version redefines that particular portion of the protocol.
+
+P17. Read RFC 5321 for SMTP. What does MTA stand for? Consider the following received spam e-mail (modified from a real spam e-mail). Assuming only the originator of this spam e-mail is malicious and all other hosts are honest, identify the malacious host that has generated this spam e-mail.
+A: MTA stands for Mail Transfer Agent. Mail servers act as MTAs when they tranasport mail from one server to another. 
 
 
