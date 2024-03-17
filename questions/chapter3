@@ -1,0 +1,37 @@
+R1. Suppose the network layer provides the following service. The network layer in the source host accepts a segment of maximum size 1,200 bytes and a destination host address from the transport layer. The network layer then guarantees to deliver the segment to the transport layer at the destination host. Suppose many network application processes can be running at the destination host.
+
+a. Design the simplest possible transport-layer protocol that will get application data to the desired process at the destination host. Assume the operating system in the destination host has assigned a 4-byte port number to each running application process.
+A: If the destination host assigns a 4-byte port number, then the sending host should dedicate 4 bytes for the port number and 4-bytes for the IP address. Another 8 bytes should be assigned to represent the sending host's IP address and port number. As a result, 16 bytes of 1,200 will be used to give the details of the sending hosts and receiving hosts locations. 2 bytes should be used to represent the content length, and the remaining 1,200 - 16 - 2 = 1,182 bytes will represent the content itself.
+
+b. Modify this protocol so that it provides a “return address” to the destination process.
+A: See answer to question a.
+
+c. In your protocols, does the transport layer “have to do anything” in the core of the computer network?
+A: Yes, the transport layer performs multiplexing and demultiplexing. For each process running in a host, when a process wants to send a request to a destination host, the transport layer must identify the socket that is assigned to the process with a port number. It attaches this port number, along with the destination port number and other header fields, to create a segment. This whole process is called multiplexing.
+
+R2. Consider a planet where everyone belongs to a family of six, every family lives in its own house, each house has a unique address, and each person in a given house has a unique name. Suppose this planet has a mail service that delivers letters from source house to destination house. The mail service requires that (1) the letter be in an envelope, and that (2) the address of the destination house (and nothing more) be clearly written on the envelope. Suppose each family has a delegate family member who collects and distributes letters for the other family members. The letters do not necessarily provide any indication of the recipients of the letters.
+
+a. Using the solution to Problem R1 above as inspiration, describe a protocol that the delegates can use to deliver letters from a sending family member to a receiving family member.
+A: The delegates can follow batch processing. They can schedule a certain time, every day, where they collect the letters from each family member, and drop off the letters, as a batch, to the mail service. The receiving delegate receives the batch and distributes the letters to the appropriate members.
+
+b. In your protocol, does the mail service ever have to open the envelope and examine the letter in order to provide its service?
+A: Nope.
+
+R3. Consider a TCP connection between Host A and Host B. Suppose that the TCP segments traveling from Host A to Host B have source port number x and destination port number y. What are the source and destination port numbers for the segments traveling from Host B to Host A?
+A: Source port number y and destination port number x.
+
+R4. Describe why an application developer might choose to run an application over UDP rather than TCP.
+A: An app developer will choose UDP over TCP when reliable data delivery is not a priority. The application can still provide a good user experience when some UDP packets are lost.
+
+R5. Why is it that voice and video traffic is often sent over TCP rather than UDP in today’s Internet? (Hint: The answer we are looking for has nothing to do with TCP’s congestion-control mechanism.)
+A: In the case of video and voice traffic, maintaining an open TCP connection allows the server to continuously send packets to the host. Whereas a UDP protocol would require additional requests to receive the next set of voice or video packets. 
+
+R6. Is it possible for an application to enjoy reliable data transfer even when the application runs over UDP? If so, how?
+A: Yes. Reliable Data Transfer would then have to be implemented on that application layer, instead of the transport layer.
+
+R7. Suppose a process in Host C has a UDP socket with port number 6789. Suppose both Host A and Host B each send a UDP segment to Host C with destination port number 6789. Will both of these segments be directed to the same socket at Host C? If so, how will the process at Host C know that these 
+two segments originated from two different hosts?
+A: Both segments from Host A and Host B will be directed to the same socket with port number 6789 at Host C. The process can differentiate the 2 segments using the IP address in the payload.
+
+R8. Suppose that a Web server runs in Host C on port 80. Suppose this Web server uses persistent connections, and is currently receiving requests from two different Hosts, A and B. Are all of the requests being sent through the same socket at Host C? If they are being passed through different sockets, do both of the sockets have port 80? Discuss and explain.
+A: All initial requests will be sent to the same socket with port 80, but the resulting established TCP connection will have different port numbers for each client.
