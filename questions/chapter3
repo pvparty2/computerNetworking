@@ -35,3 +35,47 @@ A: Both segments from Host A and Host B will be directed to the same socket with
 
 R8. Suppose that a Web server runs in Host C on port 80. Suppose this Web server uses persistent connections, and is currently receiving requests from two different Hosts, A and B. Are all of the requests being sent through the same socket at Host C? If they are being passed through different sockets, do both of the sockets have port 80? Discuss and explain.
 A: All initial requests will be sent to the same socket with port 80, but the resulting established TCP connection will have different port numbers for each client.
+
+R9. In our rdt protocols, why did we need to introduce sequence numbers?
+A: Sequence numbers keep track of which packets are sent by the sender and received by the receiver. This way, the sender and receiver can report errors to each other in order to ensure that lost packets are re-sent and that, ultimately, the data is transferred in order and completely.
+
+R10. In our rdt protocols, why did we need to introduce timers?
+A: Timers are needed in case packets are lost in the channel. When the timer runs down, and the sender has not received an acknowledgement for the packet, then the sender knows to resend the packet and restart the timer.
+
+R11. Suppose that the roundtrip delay between sender and receiver is constant and known to the sender. Would a timer still be necessary in protocol rdt 3.0, assuming that packets can be lost? Explain.
+A: Yes. Timers are especially important in scenarios where packets can be lost. If the sender transmits a packet that is lost, the receiver will not send an acknowledgement for that lost packet. If the RTT delay is known, then an exact timeout can be calculated.
+
+R12. Visit the Go-Back-N interactive animation at the companion Web site.
+a. Have the source send five packets, and then pause the animation before any of the five packets reach the destination. Then kill the first packet and resume the animation. Describe what happens.
+A: The receiver ignores all 4 remaining packets because it is expecting a packet with sequence number 0.
+
+b. Repeat the experiment, but now let the first packet reach the destination and kill the first acknowledgment. Describe again what happens.
+A: If the ACK for seq_0 is lost, then the receiver still sends ACKs for the subsequent packets. When the sender gets the ACKs for seq_1, seq_2, seq_3, and seq_4, but not seq_0, the sender assumes that the receiver got seq_0 packet because, otherwise, the receiver would never have generated and sent those ACKs.
+
+c. Finally, try sending six packets. What happens?
+A: Since the window size is 5 packets, the sixth packet cannot be sent until, at least, the ACK for the lowest sequence number in the window is received by the sender.
+
+R13. Repeat R12, but now with the Selective Repeat interactive animation. How are Selective Repeat and Go-Back-N different?
+A: In the Selective Repeat protocol, the receiver sends ACKs for each packet sequence number, regardless if the sequence number is in the receiver's window or not. Unlike GBN, it does not ignore packets received out of order, but instead stores those packets in a buffer. The window does not move, on the sender side until, at least, the lowest sequence number is obtained. Additionally, the sender's window also does not move until the lowest sequence number is obtained in its window.
+
+R14. True or False.
+
+Host A is sending Host B a large file over a TCP connection. Assume Host B has no data to send Host A. Host B will not send acknowledgments to Host A because Host B cannot piggyback the acknowledgments on data.
+A: False.  Host B can send acknowledgements even if there is no application data to piggyback off of. Piggybacking is a convenient operation that allows a host to send additional information, on top of any data, over a single transaction.
+
+The size of the TCP rwnd never changes throughout the duration of the connection.
+A: False. rwnd is the receive window which is the amount of space that a buffer has available on the receiving host. The sender host takes this into account when deciding how much data to send.
+
+Suppose Host A is sending Host B a large file over a TCP connection. 
+The number of unacknowledged bytes that A sends cannot exceed the size of the receive buffer.
+A: True. Since Host A cannot know whether the ACKs were lost in transit from Host B, or if the application on Host B has not yet processed the data in the buffer, it's safer for Host A to assume that the receive window is still 0 unless told otherwise by Host B.
+
+Suppose Host A is sending a large file to Host B over a TCP connection.
+If the sequence number for a segment of this connection is m, then the sequence number for the subsequent segment will necessarily be m + 1.
+A: False. The next sequence number depends on the number of bytes of data that were transmitted.
+If the sequence number is 100, and the sender sends 20 bytes of data, 
+the receiver will return an ACK of 120. This means that the receiver has received 20 bytes of data 
+numbered 100, 101, ..., 119, and it expects the next byte of data numbered at 120.
+
+The TCP segment has a field in its header for rwnd.
+A: True.
