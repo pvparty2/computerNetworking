@@ -1,0 +1,28 @@
+R1. Let’s review some of the terminology used in this textbook. 
+Recall that the name of a transport-layer packet is segment and 
+that the name of a link-layer packet is frame. 
+What is the name of a network-layer packet? 
+Recall that both routers and link-layer switches are called packet switches. 
+What is the fundamental difference between a router and link-layer switch?
+A: A network-layer packet is called a datagram.
+A packet switch is a device that forwards a packet from the input link to the output link.
+A router is a packet switch that bases its forwarding decision on the network-layer's datagram header fields. 
+A link-layer switch is a packet switch that bases it forwarding decision on the link-layers frame header fields.
+
+R2. We noted that network layer functionality can be broadly divided into data plane functionality and control plane functionality. 
+What are the main functions of the data plane? Of the control plane?
+A: The main function of a data plane is to control how a packet is forwarded from the input link to the output link.
+The main function of a control plane is to control how a packet is routed from host to host. It determines the path that a packet should traverse as it makes its way across the network.
+
+R3. We made a distinction between the forwarding function and the routing function performed in the network layer. 
+What are the key differences between routing and forwarding?
+A: See answer to question 2 above.
+
+R4. What is the role of the forwarding table within a router?
+A: The forwarding table is an index table that has information on where a certain packet with specific headers should be forwarded to. The router will index the value of a packet's header in the forwarding table to determine the output link that the router should forward the packet to.
+
+R5. We said that a network layer’s service model “defines the characteristics of end-to-end transport of packets between sending and receiving hosts.” 
+What is the service model of the Internet’s network layer? 
+What guarantees are made by the Internet’s service model regarding the host-to-host delivery of datagrams?
+A: The Internet's network layer service model is called best-effort.
+It has no guarantees.
